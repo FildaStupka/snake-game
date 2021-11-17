@@ -4,12 +4,15 @@ const stopBtn = document.getElementById("stop-btn")
 const displayScore = document.getElementById("display-score")
 const grid = document.getElementById("grid")
 const width = 10
+const speedup = .9
 let squares = []
-let currentSnake = [6,5,4,3,2,1,0]
+let currentSnake = [2,1,0]
 let direction = 1
 let interval = 0
 let appleLocation
 let score = 0
+let intervalTime = 1000
+
 
 function createGrid() {
     for (let i = 0; i < width*width; i++) {
@@ -25,12 +28,12 @@ currentSnake.forEach (index => squares[index].classList.add("snake"))
 
 function startGame() {
     generateApple()
-    interval = setInterval(move, 1000)
+    interval = setInterval(move, intervalTime)
 }
 
 function restartGame() {
     currentSnake.forEach (index => squares[index].classList.remove("snake"))
-    currentSnake = [6,5,4,3,2,1,0]
+    currentSnake = [2,1,0]
     direction = 1
     currentSnake.forEach (index => squares[index].classList.add("snake"))
     score = 0
@@ -45,9 +48,9 @@ function stopGame() {
 //movement, growth and endings
 function move() {
     //endings
-    if ((currentSnake[0] % 10 === 9 && direction === 1) ||
+    if ((currentSnake[0] % width === 9 && direction === 1) ||
         (currentSnake[0] + direction >= 100) ||
-        (currentSnake[0] % 10 === 0 && direction === -1) ||
+        (currentSnake[0] % width === 0 && direction === -1) ||
         (currentSnake[0] + direction < 0) ||
         squares[currentSnake[0] + direction].classList.contains("snake")) 
         return stopGame()
@@ -64,8 +67,12 @@ function move() {
         currentSnake.push(tail)
         squares[tail].classList.add("snake")
         generateApple()
-        score += 1
+        score++
         displayScore.textContent = score
+        clearInterval(interval)
+        intervalTime *= speedup
+        console.log(intervalTime)
+        interval = setInterval(move, intervalTime)
     }
 }
 
@@ -74,11 +81,11 @@ function control(e) {
     if (e.keyCode === 39 || e.key === "ArrowRight") {
         direction = 1
     } else if (e.keyCode === 40 || e.key === "ArrowDown") {
-        direction = 10
+        direction = width
     } else if (e.keyCode === 37 || e.key === "ArrowLeft") {
         direction = -1
     } else if (e.keyCode === 38 || e.key === "ArrowUp") {
-        direction = -10
+        direction = -width
     }
 }
 
