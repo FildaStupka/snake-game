@@ -3,13 +3,14 @@ const displayScore = document.getElementById("display-score")
 const grid = document.getElementById("grid")
 const width = 10
 let squares = []
-let currentSnake = [2,1,0]
+let currentSnake = [6,5,4,3,2,1,0]
 let direction = 1
 
 function createGrid() {
     for (let i = 0; i < width*width; i++) {
         const square = document.createElement("div")
         square.classList.add("square")
+        square.textContent = i
         grid.appendChild(square)
         squares.push(square)
     }
@@ -19,6 +20,13 @@ createGrid()
 currentSnake.forEach (index => squares[index].classList.add("snake"))
 
 function move() {
+    if ((currentSnake[0] % 10 === 9 && direction === 1) ||
+        (currentSnake[0] + direction >= 100) ||
+        (currentSnake[0] % 10 === 0 && direction === -1) ||
+        (currentSnake[0] + direction < 0) ||
+        squares[currentSnake[0] + direction].classList.contains("snake")) 
+        return clearInterval(interval)
+
     const tail = currentSnake.pop()
     squares[tail].classList.remove("snake")
     currentSnake.unshift(currentSnake[0] + direction)
