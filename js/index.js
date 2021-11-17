@@ -2,6 +2,8 @@ const startBtn = document.getElementById("start-btn")
 const restartBtn = document.getElementById("restart-btn")
 const stopBtn = document.getElementById("stop-btn")
 const displayScore = document.getElementById("display-score")
+const displayHighscore = document.getElementById("display-highscore")
+const gameOverContainer = document.getElementById("game-over-container")
 const grid = document.getElementById("grid")
 const width = 10
 const speedup = .9
@@ -12,6 +14,10 @@ let interval = 0
 let appleLocation
 let score = 0
 let intervalTime = 1000
+let highscore = 0
+
+displayScore.textContent = score
+displayHighscore.textContent = highscore
 
 
 function createGrid() {
@@ -30,6 +36,7 @@ currentSnake.forEach (index => squares[index].classList.add("snake"))
 function startGame() {
     generateApple()
     interval = setInterval(move, intervalTime)
+    startBtn.style.display = "none"
 }
 
 function restartGame() {
@@ -42,9 +49,12 @@ function restartGame() {
     squares[appleLocation].classList.remove("apple")
 }
 
-function stopGame() {
+function gameOver() {
     clearInterval(interval)
-    console.log("You lost!")
+    
+    // gameOverContainer.style.display = "block"
+    
+    console.log("Game over!")
 }
 
 //movement, growth and endings
@@ -55,7 +65,7 @@ function move() {
         (currentSnake[0] % width === 0 && direction === -1) ||
         (currentSnake[0] + direction < 0) ||
         squares[currentSnake[0] + direction].classList.contains("snake")) 
-        return stopGame()
+        return gameOver()
 
     //movement
     const tail = currentSnake.pop()
@@ -71,9 +81,14 @@ function move() {
         generateApple()
         score++
         displayScore.textContent = score
+
+        if (score>highscore) {
+            highscore = score
+            displayHighscore.textContent = highscore
+        }
+
         clearInterval(interval)
         intervalTime *= speedup
-        console.log(intervalTime)
         interval = setInterval(move, intervalTime)
     }
 }
@@ -103,4 +118,3 @@ function generateApple() {
 document.addEventListener("keyup", control)
 startBtn.addEventListener("click", startGame)
 restartBtn.addEventListener("click", restartGame)
-stopBtn.addEventListener("click", stopGame)
