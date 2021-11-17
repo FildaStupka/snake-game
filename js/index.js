@@ -3,7 +3,7 @@ const restartBtn = document.getElementById("restart-btn")
 const stopBtn = document.getElementById("stop-btn")
 const displayScore = document.getElementById("display-score")
 const displayHighscore = document.getElementById("display-highscore")
-const gameOverContainer = document.getElementById("game-over-container")
+//const gameOverContainer = document.getElementById("game-over-container")
 const grid = document.getElementById("grid")
 const width = 10
 const speedup = .9
@@ -18,6 +18,8 @@ let highscore = 0
 
 displayScore.textContent = score
 displayHighscore.textContent = highscore
+
+//console.log(gameOverContainer)
 
 
 function createGrid() {
@@ -52,7 +54,7 @@ function restartGame() {
 function gameOver() {
     clearInterval(interval)
     
-    // gameOverContainer.style.display = "block"
+    document.getElementById("game-over-container").style.display = "block"
     
     console.log("Game over!")
 }
