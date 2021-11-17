@@ -27,5 +27,22 @@ function move() {
 
 let interval = setInterval(move, 1000)
 
+function control(e) {
+    if (e.keyCode === 39 || e.key === "ArrowRight") {
+        direction = 1
+        console.log("right pressed")
+    } else if (e.keyCode === 40 || e.key === "ArrowDown") {
+        direction = 10
+        console.log("down pressed")
+    } else if (e.keyCode === 37 || e.key === "ArrowLeft") {
+        direction = -1
+        console.log("left pressed")
+    } else if (e.keyCode === 38 || e.key === "ArrowUp") {
+        direction = -10
+        console.log("up pressed")
+    }
+}
+
+document.addEventListener("keyup", control)
 //delete
 startBtn.addEventListener("click", function() {clearInterval(interval)})
