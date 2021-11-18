@@ -3,7 +3,7 @@ const restartBtn = document.getElementById("restart-btn")
 const stopBtn = document.getElementById("stop-btn")
 const displayScore = document.getElementById("display-score")
 const displayHighscore = document.getElementById("display-highscore")
-//const gameOverContainer = document.getElementById("game-over-container")
+const gameOverContainer = document.getElementById("game-over-container")
 const grid = document.getElementById("grid")
 const width = 10
 const speedup = .9
@@ -32,20 +32,18 @@ function createGrid() {
 }
 createGrid()
 
-currentSnake.forEach (index => squares[index].classList.add("snake"))
-
 //start, restart, stop
 function startGame() {
     generateApple()
     interval = setInterval(move, intervalTime)
     startBtn.style.display = "none"
+    currentSnake.forEach (index => squares[index].classList.add("snake"))
 }
 
 function restartGame() {
     currentSnake.forEach (index => squares[index].classList.remove("snake"))
     currentSnake = [2,1,0]
     direction = 1
-    currentSnake.forEach (index => squares[index].classList.add("snake"))
     score = 0
     displayScore.textContent = score
     squares[appleLocation].classList.remove("apple")
@@ -54,7 +52,7 @@ function restartGame() {
 function gameOver() {
     clearInterval(interval)
     
-    document.getElementById("game-over-container").style.display = "block"
+    gameOverContainer.style.display = "block"
     
     console.log("Game over!")
 }
