@@ -36,9 +36,10 @@ h1 {
 #grid {
     width: 400px;
     height: 400px;
-    border: 4px black solid;
+    border: 4px rgb(0, 114, 0) solid;
     display: flex;
     flex-wrap: wrap;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .square {
@@ -64,9 +65,21 @@ button {
     text-transform: uppercase;
     padding: 15px 30px;
     position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+button:hover, button:focus {
+    transform: scale(1.1);
+}
+
+#start-btn {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#start-btn:hover, #start-btn:focus {
+    transform: translate(-50%, -50%) scale(1.1)
 }
 
 /*pop-ups*/
@@ -75,8 +88,27 @@ button {
     position: fixed;
     width: 100%;
     height: inherit;
-    background-color: rgba(65, 105, 225, 0.5);
+    background-color: rgb(103, 230, 124);
     top: 0;
     left: 0;
     bottom: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+#game-over-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    position: absolute;
+    width: 30vw;
+    height: 70vh;
+    border: rgb(0, 114, 0) solid 4px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#new-highscore {
+    display: none;
 }
