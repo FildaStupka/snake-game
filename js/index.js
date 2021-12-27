@@ -55,6 +55,7 @@ function restartGame() {
 
 function gameOver() {
     clearInterval(interval)
+    intervalTime = 1000
     gameOverContainer.style.display = "flex"
     endScore.textContent = score
 }
